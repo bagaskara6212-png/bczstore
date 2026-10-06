@@ -2,9 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-/* WARNA DASAR HALAMAN (BIRU SUSU DI LIGHT MODE, DARK GELAP DI DARK MODE) */
+/* ROOT & BODY SYSTEM */
+:root {
+  color-scheme: light;
+}
+.dark {
+  color-scheme: dark;
+}
+
 body {
-  @apply bg-sky-50 text-slate-800 transition-colors duration-300;
+  @apply bg-sky-50 text-slate-900 transition-colors duration-300;
 }
 .dark body {
   @apply bg-slate-950 text-slate-100;
@@ -16,21 +23,22 @@ body {
   .animate-slide-down { animation: slideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
   
   .liquid-glass {
-    @apply bg-white/70 dark:bg-slate-900/80 backdrop-blur-2xl border border-white/50 dark:border-slate-800/80 shadow-xl shadow-sky-500/5 dark:shadow-slate-950/50;
+    @apply bg-white/80 dark:bg-slate-900/80 backdrop-blur-2xl border border-white/60 dark:border-slate-800/80 shadow-xl;
   }
 }
 
 @layer components {
-  /* CARD UTAMA (PAKAI shadow-sm BIAR GA ERROR) */
+  /* CARD UTAMA: Biru Susu / Putih di Light Mode, Gelap di Dark Mode */
   .card-babyblue {
-    @apply bg-white text-slate-800 dark:bg-slate-900/90 dark:text-slate-100 border border-sky-100 dark:border-slate-800/80 rounded-3xl shadow-sm transition-all duration-300;
+    @apply bg-white text-slate-800 dark:bg-slate-900 dark:text-slate-100 border border-sky-100 dark:border-slate-800 rounded-3xl shadow-sm transition-all duration-300;
   }
 
+  /* INPUT UTAMA: Teks Selalu Kontras */
   .input-babyblue {
     @apply w-full px-4 py-3 rounded-2xl 
-           bg-sky-50/70 text-slate-900 placeholder-slate-400
+           bg-sky-50 text-slate-900 placeholder-slate-400
            dark:bg-slate-800 dark:text-white dark:placeholder-slate-500
-           border border-sky-200/80 dark:border-slate-700 
+           border border-sky-200 dark:border-slate-700 
            focus:outline-none focus:ring-2 focus:ring-sky-400 focus:bg-white dark:focus:bg-slate-700 transition-all duration-300;
   }
 
@@ -39,17 +47,17 @@ body {
   }
 }
 
-/* SISTEM TEMA SPESIAL ADMIN/VIP */
+/* 4 TEMA MODE EXCLUSIVE */
 .theme-glass-light .card-babyblue {
-  @apply bg-white/50 text-slate-900 border-white/60 backdrop-blur-2xl shadow-xl shadow-sky-500/10 !important;
+  @apply bg-white/60 text-slate-900 border-white/80 backdrop-blur-2xl shadow-xl !important;
 }
 .theme-glass-dark .card-babyblue {
-  @apply bg-slate-900/50 text-white border-slate-700/50 backdrop-blur-2xl shadow-2xl shadow-slate-950/80 !important;
+  @apply bg-slate-900/60 text-white border-slate-700/60 backdrop-blur-2xl shadow-2xl !important;
 }
 
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-@keyframes slideUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes slideDown { from { opacity: 0; transform: translateY(-18px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes slideDown { from { opacity: 0; transform: translateY(-15px); } to { opacity: 1; transform: translateY(0); } }
 
 .scrollbar-none::-webkit-scrollbar { display: none; }
 .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
