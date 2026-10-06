@@ -36,7 +36,7 @@ export default function VipPaymentManager() {
   };
 
   const handleDelete = async (id) => {
-    if (!confirm('Hapus riwayat pembayaran ini?')) return;
+    if (!confirm('Hapus riwayat pembayaran VIP ini?')) return;
     try {
       await deleteDoc(doc(db, 'vipPayments', id));
     } catch (err) {
@@ -50,11 +50,11 @@ export default function VipPaymentManager() {
         <span className="text-[10px] font-bold uppercase tracking-wider text-sky-600 dark:text-sky-400 bg-sky-50 dark:bg-slate-800 px-2.5 py-1 rounded-lg border border-sky-100 dark:border-slate-700">
           💳 Laporan Transaksi VIP
         </span>
-        <h2 className="text-xl font-black text-sky-900 dark:text-white tracking-tight mt-1">Verifikasi Pembayaran VIP</h2>
+        <h2 className="text-xl font-black text-slate-800 dark:text-white tracking-tight mt-1">Verifikasi Pembayaran VIP</h2>
       </div>
 
       <div className="card-babyblue p-6">
-        <h3 className="text-sm font-bold text-sky-900 dark:text-white mb-4">
+        <h3 className="text-sm font-bold text-slate-800 dark:text-white mb-4">
           Daftar Pengajuan VIP ({vipPayments.length})
         </h3>
 
@@ -79,9 +79,8 @@ export default function VipPaymentManager() {
               ) : (
                 vipPayments.map((item) => (
                   <tr key={item.id} className="hover:bg-sky-50/50 dark:hover:bg-slate-800/50 transition">
-                    {/* ✅ FIX EMAIL KELIHATAN TERANG BENDERANG */}
-                    <td className="py-3 px-3 font-bold text-slate-800 dark:text-white">{item.email}</td>
-                    <td className="py-3 px-3 font-medium text-slate-600 dark:text-slate-300">{item.method || 'Transfer'}</td>
+                    <td className="py-3 px-3 font-bold text-slate-900 dark:text-white">{item.email}</td>
+                    <td className="py-3 px-3 font-medium text-slate-700 dark:text-slate-300">{item.method || 'Transfer'}</td>
                     <td className="py-3 px-3 font-black text-sky-600 dark:text-sky-400">
                       Rp {Number(item.amount || 30000).toLocaleString('id-ID')}
                     </td>
@@ -111,4 +110,4 @@ export default function VipPaymentManager() {
       </div>
     </div>
   );
-}
+            }
