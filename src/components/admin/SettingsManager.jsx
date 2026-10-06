@@ -158,4 +158,42 @@ export default function SettingsManager() {
               { num: 2, nameKey: 'adminWa2Name', waKey: 'adminWa2' },
               { num: 3, nameKey: 'adminWa3Name', waKey: 'adminWa3' },
             ].map((cs) => (
-              <div key={cs.num} className="grid grid-cols-1 sm:grid-cols-2 gap-3 p-3 bg-sky-50/30 dark:bg-slate-800/4
+              <div key={cs.num} className="grid grid-cols-1 sm:grid-cols-2 gap-3 p-3 bg-sky-50/30 dark:bg-slate-800/40 rounded-2xl border border-sky-100/60 dark:border-slate-700/60">
+                <div>
+                  <label className="block text-[11px] font-semibold text-slate-600 dark:text-slate-300 mb-1">
+                    Nama Admin {cs.num}
+                  </label>
+                  <input
+                    type="text"
+                    name={cs.nameKey}
+                    value={settings[cs.nameKey] || ''}
+                    onChange={handleChange}
+                    className="w-full input-babyblue text-xs"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[11px] font-semibold text-slate-600 dark:text-slate-300 mb-1">
+                    No. WA Admin {cs.num} (628xxx)
+                  </label>
+                  <input
+                    type="text"
+                    name={cs.waKey}
+                    placeholder="6281234567890"
+                    value={settings[cs.waKey] || ''}
+                    onChange={handleChange}
+                    className="w-full input-babyblue text-xs font-mono"
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <button type="submit" disabled={loading} className="btn-babyblue px-6 py-3 text-xs font-bold flex items-center gap-2">
+            <Save className="w-4 h-4" />
+            {loading ? 'Menyimpan...' : 'Simpan Pengaturan'}
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+}
