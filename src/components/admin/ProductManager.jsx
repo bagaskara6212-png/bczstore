@@ -77,6 +77,7 @@ export default function ProductManager() {
 
   return (
     <div className="space-y-6">
+      {/* FORM INPUT PRODUK */}
       <div className="card-babyblue p-6 space-y-4">
         <div className="flex items-center gap-3 border-b border-sky-100 dark:border-slate-800 pb-3">
           <div className="p-2.5 bg-sky-500/10 text-sky-500 rounded-2xl">
@@ -159,6 +160,7 @@ export default function ProductManager() {
         </form>
       </div>
 
+      {/* DAFTAR PRODUK */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {products.map((prod) => (
           <div key={prod.id} className="card-babyblue p-4 flex flex-col justify-between space-y-3">
@@ -195,53 +197,6 @@ export default function ProductManager() {
           </div>
         ))}
       </div>
-    </div>
-  );
-}
-      onChange={(e) => setVariantName(e.target.value)}
-                    className="w-1/2 input-babyblue text-xs bg-white"
-                  />
-                  <input
-                    type="number"
-                    placeholder="Harga (Rp)"
-                    value={variantPrice}
-                    onChange={(e) => setVariantPrice(e.target.value)}
-                    className="w-1/2 input-babyblue text-xs bg-white"
-                  />
-                </div>
-                <button
-                  type="button"
-                  onClick={handleAddVariant}
-                  className="w-full py-1.5 bg-sky-200 hover:bg-sky-300 text-sky-900 font-bold text-[11px] rounded-xl transition"
-                >
-                  + Tambah Varian Ke Daftar
-                </button>
-
-                {variants.length > 0 && (
-                  <div className="space-y-1 pt-2 border-t border-sky-100">
-                    {variants.map((v, i) => (
-                      <div key={i} className="flex items-center justify-between text-xs bg-white p-2 rounded-xl border border-sky-100">
-                        <span>{v.name} - Rp {v.price?.toLocaleString('id-ID')}</span>
-                        <button
-                          type="button"
-                          onClick={() => handleRemoveVariant(i)}
-                          className="text-rose-600 font-bold text-[10px]"
-                        >
-                          Hapus
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              <button type="submit" disabled={loading} className="w-full btn-babyblue text-xs font-bold mt-2 py-3 shadow-md">
-                {loading ? 'Menyimpan Produk...' : 'Simpan Produk Baru'}
-              </button>
-            </form>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
