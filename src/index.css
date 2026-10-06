@@ -23,9 +23,9 @@
      KOMPONEN UTAMA UI 
      ========================================= */
   
-  /* CARD UTAMA */
+  /* CARD UTAMA (FIX: shadow-xs diganti jadi shadow-sm) */
   .card-babyblue {
-    @apply bg-white text-slate-800 dark:bg-slate-900 dark:text-slate-100 border border-sky-100 dark:border-slate-800 rounded-3xl shadow-xs transition-all duration-300;
+    @apply bg-white text-slate-800 dark:bg-slate-900 dark:text-slate-100 border border-sky-100 dark:border-slate-800 rounded-3xl shadow-sm transition-all duration-300;
   }
 
   /* INPUT FIX: Teks Hitam di Light Mode, Putih di Dark Mode (Anti Buta) */
