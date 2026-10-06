@@ -20,9 +20,7 @@ export default function VipPaymentManager() {
 
     try {
       const cleanEmail = payment.email.toLowerCase().trim();
-
       await updateDoc(doc(db, 'vipPayments', payment.id), { status: 'paid' });
-
       await setDoc(doc(db, 'vipMembers', cleanEmail), {
         email: cleanEmail,
         status: 'active',
@@ -31,14 +29,14 @@ export default function VipPaymentManager() {
 
       alert(`Pembayaran disetujui! Akun ${cleanEmail} resmi jadi Member VIP.`);
     } catch (err) {
-      alert('Gagal menyetujui pembayaran: ' + err.message);
+      alert('Gagal menyetujui: ' + err.message);
     } finally {
       setLoading(false);
     }
   };
 
   const handleDelete = async (id) => {
-    if (!confirm('Hapus riwayat pembayaran VIP ini?')) return;
+    if (!confirm('Hapus riwayat pembayaran ini?')) return;
     try {
       await deleteDoc(doc(db, 'vipPayments', id));
     } catch (err) {
@@ -53,7 +51,6 @@ export default function VipPaymentManager() {
           💳 Laporan Transaksi VIP
         </span>
         <h2 className="text-xl font-black text-sky-900 dark:text-white tracking-tight mt-1">Verifikasi Pembayaran VIP</h2>
-        <p className="text-xs text-slate-500 dark:text-slate-400">Cek dan konfirmasi pembayaran masuk dari user yang membeli keanggotaan VIP.</p>
       </div>
 
       <div className="card-babyblue p-6">
@@ -69,10 +66,10 @@ export default function VipPaymentManager() {
                 <th className="py-3 px-3">Metode Bayar</th>
                 <th className="py-3 px-3">Total Tagihan</th>
                 <th className="py-3 px-3">Status</th>
-                <th className="py-3 px-3 text-right">Aksi Verifikasi</th>
+                <th className="py-3 px-3 text-right">Aksi</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-sky-50 dark:divide-slate-800">
+            <tbody className="divide-y divide-sky-100 dark:divide-slate-800">
               {vipPayments.length === 0 ? (
                 <tr>
                   <td colSpan={5} className="py-8 text-center text-slate-400 font-medium">
@@ -82,36 +79,26 @@ export default function VipPaymentManager() {
               ) : (
                 vipPayments.map((item) => (
                   <tr key={item.id} className="hover:bg-sky-50/50 dark:hover:bg-slate-800/50 transition">
-                    <td className="py-3 px-3 font-semibold text-slate-800 dark:text-slate-200">{item.email}</td>
-                    <td className="py-3 px-3 font-medium text-slate-600 dark:text-slate-400">{item.method || 'Transfer'}</td>
-                    <td className="py-3 px-3 font-bold text-sky-600 dark:text-sky-400">
+                    {/* ✅ FIX EMAIL KELIHATAN TERANG BENDERANG */}
+                    <td className="py-3 px-3 font-bold text-slate-800 dark:text-white">{item.email}</td>
+                    <td className="py-3 px-3 font-medium text-slate-600 dark:text-slate-300">{item.method || 'Transfer'}</td>
+                    <td className="py-3 px-3 font-black text-sky-600 dark:text-sky-400">
                       Rp {Number(item.amount || 30000).toLocaleString('id-ID')}
                     </td>
                     <td className="py-3 px-3">
-                      <span
-                        className={`px-2.5 py-1 rounded-full text-[10px] font-bold ${
-                          item.status === 'paid'
-                            ? 'bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400'
-                            : 'bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-400'
-                        }`}
-                      >
+                      <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold ${
+                        item.status === 'paid' ? 'bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-400' : 'bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-400'
+                      }`}>
                         {item.status || 'pending'}
                       </span>
                     </td>
                     <td className="py-3 px-3 text-right space-x-1">
                       {item.status !== 'paid' && (
-                        <button
-                          onClick={() => handleApproveVip(item)}
-                          disabled={loading}
-                          className="px-3 py-1 bg-emerald-500 text-white hover:bg-emerald-600 rounded-xl font-bold text-[10px] shadow-xs transition"
-                        >
-                          ✓ Setujui VIP
+                        <button onClick={() => handleApproveVip(item)} disabled={loading} className="px-3 py-1 bg-emerald-500 text-white rounded-xl font-bold text-[10px]">
+                          ✓ Setujui
                         </button>
                       )}
-                      <button
-                        onClick={() => handleDelete(item.id)}
-                        className="px-2.5 py-1 bg-rose-50 dark:bg-rose-950/50 text-rose-600 dark:text-rose-400 hover:bg-rose-100 dark:hover:bg-rose-900 rounded-xl font-bold text-[10px] border border-rose-200 dark:border-rose-900 transition"
-                      >
+                      <button onClick={() => handleDelete(item.id)} className="px-2.5 py-1 bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 rounded-xl font-bold text-[10px]">
                         Hapus
                       </button>
                     </td>
