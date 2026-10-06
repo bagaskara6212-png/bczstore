@@ -77,7 +77,6 @@ export default function ProductManager() {
 
   return (
     <div className="space-y-6">
-      {/* FORM INPUT PRODUK */}
       <div className="card-babyblue p-6 space-y-4">
         <div className="flex items-center gap-3 border-b border-sky-100 dark:border-slate-800 pb-3">
           <div className="p-2.5 bg-sky-500/10 text-sky-500 rounded-2xl">
@@ -94,57 +93,27 @@ export default function ProductManager() {
         <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">Nama Produk</label>
-            <input 
-              type="text" 
-              value={name} 
-              onChange={e => setName(e.target.value)} 
-              placeholder="Contoh: 100 Robux" 
-              className="input-babyblue text-xs" 
-            />
+            <input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="Contoh: 100 Robux" className="input-babyblue text-xs" />
           </div>
 
           <div>
             <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">Kategori</label>
-            <input 
-              type="text" 
-              value={category} 
-              onChange={e => setCategory(e.target.value)} 
-              placeholder="Contoh: Robux (Instan)" 
-              className="input-babyblue text-xs" 
-            />
+            <input type="text" value={category} onChange={e => setCategory(e.target.value)} placeholder="Contoh: Robux (Instan)" className="input-babyblue text-xs" />
           </div>
 
           <div>
             <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">Harga (Rp)</label>
-            <input 
-              type="number" 
-              value={price} 
-              onChange={e => setPrice(e.target.value)} 
-              placeholder="15000" 
-              className="input-babyblue text-xs" 
-            />
+            <input type="number" value={price} onChange={e => setPrice(e.target.value)} placeholder="15000" className="input-babyblue text-xs" />
           </div>
 
           <div>
             <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">Nama Game</label>
-            <input 
-              type="text" 
-              value={game} 
-              onChange={e => setGame(e.target.value)} 
-              placeholder="Contoh: Roblox" 
-              className="input-babyblue text-xs" 
-            />
+            <input type="text" value={game} onChange={e => setGame(e.target.value)} placeholder="Contoh: Roblox" className="input-babyblue text-xs" />
           </div>
 
           <div className="md:col-span-2">
             <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">URL Gambar (Opsional)</label>
-            <input 
-              type="text" 
-              value={image} 
-              onChange={e => setImage(e.target.value)} 
-              placeholder="https://..." 
-              className="input-babyblue text-xs" 
-            />
+            <input type="text" value={image} onChange={e => setImage(e.target.value)} placeholder="https://..." className="input-babyblue text-xs" />
           </div>
 
           <div className="md:col-span-2 flex items-center gap-2 pt-2">
@@ -160,7 +129,6 @@ export default function ProductManager() {
         </form>
       </div>
 
-      {/* DAFTAR PRODUK */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {products.map((prod) => (
           <div key={prod.id} className="card-babyblue p-4 flex flex-col justify-between space-y-3">
