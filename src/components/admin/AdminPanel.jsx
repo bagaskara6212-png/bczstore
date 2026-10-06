@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { collection, onSnapshot } from 'firebase/firestore';
-import { db } from '../../firebase';
+import { db } from '../../firebase'; // ✅ Import DB sudah ada
 
 import AdminManager from './AdminManager';
 import AccountStockManager from './AccountStockManager';
@@ -10,8 +10,9 @@ import CategoryManager from './CategoryManager';
 import OrderManager from './OrderManager';
 import PaymentManager from './PaymentManager';
 import VipManager from './VipManager';
+import VipPaymentManager from './VipPaymentManager'; // ✅ Dipisah biar ga bug
 import SettingsManager from './SettingsManager';
-import SocialContactsManager from './SocialContactsManager'; // Komponen Kontak WA & Sosmed
+import SocialContactsManager from './SocialContactsManager';
 
 export default function AdminPanel({ isMainAdmin, user }) {
   const [activeSubTab, setActiveSubTab] = useState('dashboard');
@@ -24,7 +25,7 @@ export default function AdminPanel({ isMainAdmin, user }) {
     completedOrders: 0,
   });
 
-  // Fetch Ringkasan Statistik Real-time
+  // Fetch Ringkasan Statistik Real-time dari Firestore
   useEffect(() => {
     const unsubOrders = onSnapshot(collection(db, 'orders'), (snap) => {
       let pending = 0;
@@ -78,15 +79,14 @@ export default function AdminPanel({ isMainAdmin, user }) {
     { id: 'settings', label: 'Pengaturan' },
   ];
 
-  // Menu Additional Admin khusus Main Admin
   if (isMainAdmin) {
     menuItems.push({ id: 'additionalAdmins', label: 'Additional Admins', highlight: true });
   }
 
   return (
-    <div className="space-y-6 max-w-7xl mx-auto animate-in fade-in duration-200">
+    <div className="space-y-6 max-w-7xl mx-auto animate-fade-in">
       {/* Header Admin Dashboard */}
-      <div className="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-sky-100 dark:border-slate-800 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4 transition-colors">
+      <div className="card-babyblue p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-black text-sky-900 dark:text-sky-100 tracking-tight">Admin Panel V4.5.5</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
@@ -111,7 +111,7 @@ export default function AdminPanel({ isMainAdmin, user }) {
                     : 'bg-amber-50 dark:bg-amber-950/50 text-amber-700 dark:text-amber-300 hover:bg-amber-100 dark:hover:bg-amber-900 border border-amber-200 dark:border-amber-800'
                   : isActive
                   ? 'bg-sky-500 text-white shadow-sm shadow-sky-200 dark:shadow-none'
-                  : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:bg-sky-50 dark:hover:bg-slate-800 hover:text-sky-600 dark:hover:text-sky-400 border border-sky-100 dark:border-slate-800'
+                  : 'card-babyblue text-slate-600 dark:text-slate-300 hover:text-sky-600 dark:hover:text-sky-400'
               }`}
             >
               {item.label}
@@ -124,27 +124,27 @@ export default function AdminPanel({ isMainAdmin, user }) {
       <div>
         {activeSubTab === 'dashboard' && (
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            <div className="card-babyblue p-5 bg-white dark:bg-slate-900 border dark:border-slate-800">
+            <div className="card-babyblue p-5">
               <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1">Total Pendapatan</span>
               <span className="text-2xl font-black text-sky-600 dark:text-sky-400">Rp {stats.totalRevenue.toLocaleString('id-ID')}</span>
             </div>
-            <div className="card-babyblue p-5 bg-white dark:bg-slate-900 border dark:border-slate-800">
+            <div className="card-babyblue p-5">
               <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1">Total Pesanan</span>
               <span className="text-2xl font-black text-slate-800 dark:text-white">{stats.totalOrders}</span>
             </div>
-            <div className="card-babyblue p-5 bg-white dark:bg-slate-900 border dark:border-slate-800">
+            <div className="card-babyblue p-5">
               <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1">Pesanan Pending</span>
               <span className="text-2xl font-black text-amber-500">{stats.pendingOrders}</span>
             </div>
-            <div className="card-babyblue p-5 bg-white dark:bg-slate-900 border dark:border-slate-800">
+            <div className="card-babyblue p-5">
               <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1">Pesanan Selesai</span>
               <span className="text-2xl font-black text-emerald-500">{stats.completedOrders}</span>
             </div>
-            <div className="card-babyblue p-5 bg-white dark:bg-slate-900 border dark:border-slate-800">
+            <div className="card-babyblue p-5">
               <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1">Total Produk</span>
               <span className="text-2xl font-black text-slate-800 dark:text-white">{stats.totalProducts}</span>
             </div>
-            <div className="card-babyblue p-5 bg-white dark:bg-slate-900 border dark:border-slate-800">
+            <div className="card-babyblue p-5">
               <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1">Total Pengguna</span>
               <span className="text-2xl font-black text-slate-800 dark:text-white">{stats.totalUsers}</span>
             </div>
@@ -156,8 +156,9 @@ export default function AdminPanel({ isMainAdmin, user }) {
         {activeSubTab === 'categories' && <CategoryManager />}
         {activeSubTab === 'orders' && <OrderManager />}
         {activeSubTab === 'payments' && <PaymentManager />}
-        {activeSubTab === 'vipMembers' && <VipManager type="members" />}
-        {activeSubTab === 'vipPayments' && <VipManager type="payments" />}
+        {activeSubTab === 'vipMembers' && <VipManager />}
+        {/* FIX BENTROK TAB: Panggil VipPaymentManager yang terpisah */}
+        {activeSubTab === 'vipPayments' && <VipPaymentManager />}
         {activeSubTab === 'accountStock' && <AccountStockManager />}
         {activeSubTab === 'socials' && <SocialContactsManager />}
         {activeSubTab === 'settings' && <SettingsManager />}
