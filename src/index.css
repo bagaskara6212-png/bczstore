@@ -21,9 +21,9 @@ body {
 }
 
 @layer components {
-  /* CARD UTAMA: Otomatis Putih/Biru Susu di Light Mode & Gelap di Dark Mode */
+  /* CARD UTAMA (PAKAI shadow-sm BIAR GA ERROR) */
   .card-babyblue {
-    @apply bg-white text-slate-800 dark:bg-slate-900/90 dark:text-slate-100 border border-sky-100 dark:border-slate-800/80 rounded-3xl shadow-xs transition-all duration-300;
+    @apply bg-white text-slate-800 dark:bg-slate-900/90 dark:text-slate-100 border border-sky-100 dark:border-slate-800/80 rounded-3xl shadow-sm transition-all duration-300;
   }
 
   .input-babyblue {
