@@ -3,31 +3,24 @@
 @tailwind utilities;
 
 @layer utilities {
-  /* =========================================
-     ANIMASI SMOOTH SUPER 
-     ========================================= */
-  .animate-fade-in { animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
-  .animate-slide-up { animation: slideUp 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
-  .animate-slide-down { animation: slideDown 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+  /* ANIMASI SMOOTH SUPER */
+  .animate-fade-in { animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+  .animate-slide-up { animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+  .animate-slide-down { animation: slideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
   
-  /* =========================================
-     LIQUID GLASS APPLE UI EFFECT 
-     ========================================= */
+  /* LIQUID GLASS DEFAULT */
   .liquid-glass {
-    @apply bg-white/70 dark:bg-slate-950/80 backdrop-blur-2xl border border-white/40 dark:border-slate-800/80 shadow-xl shadow-sky-500/5 dark:shadow-slate-950/50;
+    @apply bg-white/70 dark:bg-slate-900/80 backdrop-blur-2xl border border-white/40 dark:border-slate-800/80 shadow-xl shadow-sky-500/5 dark:shadow-slate-950/50;
   }
 }
 
 @layer components {
-  /* =========================================
-     KOMPONEN UTAMA UI (FIX CARD PUTIH DI DARK MODE)
-     ========================================= */
-  
+  /* CARD UTAMA DEFAULT */
   .card-babyblue {
     @apply bg-white text-slate-800 dark:bg-slate-900 dark:text-slate-100 border border-sky-100 dark:border-slate-800 rounded-3xl shadow-sm transition-all duration-300;
   }
 
-  /* INPUT FIX: Teks Hitam di Light Mode, Putih di Dark Mode (Anti Buta) */
+  /* INPUT ANTI-BUTA TEKS */
   .input-babyblue {
     @apply w-full px-4 py-3 rounded-2xl 
            bg-sky-50/70 text-slate-900 placeholder-slate-400
@@ -43,24 +36,40 @@
 }
 
 /* =========================================
-   KEYFRAMES UNTUK TRANSISI HALUS
+   SISTEM 4 TEMA SPESIAL (ADMIN & VIP)
    ========================================= */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+
+/* Mode Full Liquid Glass Light */
+.theme-glass-light .card-babyblue {
+  @apply bg-white/40 text-slate-900 border-white/60 backdrop-blur-2xl shadow-xl shadow-sky-500/10 !important;
 }
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(15px); }
-  to { opacity: 1; transform: translateY(0); }
+
+/* Mode Full Liquid Glass Dark */
+.theme-glass-dark .card-babyblue {
+  @apply bg-slate-900/40 text-white border-slate-700/50 backdrop-blur-2xl shadow-2xl shadow-slate-950/80 !important;
 }
-@keyframes slideDown {
-  from { opacity: 0; transform: translateY(-15px); }
-  to { opacity: 1; transform: translateY(0); }
+
+/* Efek Kaca Ekstra untuk Input di Mode Glass */
+.theme-glass-light .input-babyblue,
+.theme-glass-dark .input-babyblue {
+  @apply backdrop-blur-md border-white/30 dark:border-slate-700/50;
 }
 
 /* =========================================
-   ABSOLUTE CINEMA ANIMATIONS 🍿🎬
+   KEYFRAMES TRANSISI & ANIMASI CINEMA
    ========================================= */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
 @keyframes blob {
   0% { transform: translate(0px, 0px) scale(1); }
@@ -74,7 +83,6 @@
 }
 .animation-delay-2000 { animation-delay: 2s; }
 .animation-delay-4000 { animation-delay: 4s; }
-.animation-delay-6000 { animation-delay: 6s; }
 
 @keyframes marquee {
   0% { transform: translateX(100vw); }
@@ -90,9 +98,7 @@
   animation-play-state: paused;
 }
 
-/* =========================================
-   FIX AUTOFILL CHROMIUM/ANDROID
-   ========================================= */
+/* FIX AUTOFILL CHROMIUM/ANDROID */
 input:-webkit-autofill {
   -webkit-text-fill-color: #0f172a !important;
   transition: background-color 5000s ease-in-out 0s;
@@ -101,8 +107,6 @@ input:-webkit-autofill {
   -webkit-text-fill-color: #ffffff !important;
 }
 
-/* =========================================
-   HILANGKAN SCROLLBAR
-   ========================================= */
+/* HILANGKAN SCROLLBAR HASIL SCROLL */
 .scrollbar-none::-webkit-scrollbar { display: none; }
 .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
