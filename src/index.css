@@ -14,25 +14,24 @@
      LIQUID GLASS APPLE UI EFFECT 
      ========================================= */
   .liquid-glass {
-    @apply bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl border border-white/40 dark:border-slate-700/50 shadow-xl shadow-sky-500/5 dark:shadow-slate-900/50;
+    @apply bg-white/70 dark:bg-slate-950/80 backdrop-blur-2xl border border-white/40 dark:border-slate-800/80 shadow-xl shadow-sky-500/5 dark:shadow-slate-950/50;
   }
 }
 
 @layer components {
   /* =========================================
-     KOMPONEN UTAMA UI 
+     KOMPONEN UTAMA UI (FIX CARD PUTIH DI DARK MODE)
      ========================================= */
   
-  /* CARD UTAMA (FIX: shadow-xs diganti jadi shadow-sm) */
   .card-babyblue {
     @apply bg-white text-slate-800 dark:bg-slate-900 dark:text-slate-100 border border-sky-100 dark:border-slate-800 rounded-3xl shadow-sm transition-all duration-300;
   }
 
   /* INPUT FIX: Teks Hitam di Light Mode, Putih di Dark Mode (Anti Buta) */
   .input-babyblue {
-    @apply w-full px-4 py-2.5 rounded-2xl 
+    @apply w-full px-4 py-3 rounded-2xl 
            bg-sky-50/70 text-slate-900 placeholder-slate-400
-           dark:bg-slate-800 dark:text-white dark:placeholder-slate-500
+           dark:bg-slate-800/90 dark:text-white dark:placeholder-slate-500
            border border-sky-200/80 dark:border-slate-700 
            focus:outline-none focus:ring-2 focus:ring-sky-400 focus:bg-white dark:focus:bg-slate-700 transition-all duration-300;
   }
@@ -63,7 +62,6 @@
    ABSOLUTE CINEMA ANIMATIONS 🍿🎬
    ========================================= */
 
-/* Efek Latar Belakang Orbs Berjalan */
 @keyframes blob {
   0% { transform: translate(0px, 0px) scale(1); }
   33% { transform: translate(30px, -50px) scale(1.2); }
@@ -78,7 +76,6 @@
 .animation-delay-4000 { animation-delay: 4s; }
 .animation-delay-6000 { animation-delay: 6s; }
 
-/* Efek Teks Berjalan (Marquee) */
 @keyframes marquee {
   0% { transform: translateX(100vw); }
   100% { transform: translateX(-100%); }
