@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { collection, onSnapshot, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
-import { ShoppingBag, Search, Trash2, CheckCircle, Clock, XCircle } from 'lucide-react';
+import { ShoppingBag, Search, Trash2 } from 'lucide-react';
 
 export default function OrderManager() {
   const [orders, setOrders] = useState([]);
@@ -43,7 +43,7 @@ export default function OrderManager() {
 
   return (
     <div className="space-y-6">
-      {/* FILTER & PENCARIAN (FIX CARD GELAP) */}
+      {/* FILTER & PENCARIAN */}
       <div className="card-babyblue p-4 flex flex-col md:flex-row items-center justify-between gap-4">
         <div className="relative w-full md:w-72">
           <Search className="absolute left-3.5 top-3 w-4 h-4 text-slate-400" />
@@ -68,7 +68,7 @@ export default function OrderManager() {
         </select>
       </div>
 
-      {/* DAFTAR PESANAN (FIX CARD GELAP TERANG SINKRON) */}
+      {/* DAFTAR PESANAN */}
       <div className="space-y-4">
         {filteredOrders.length > 0 ? (
           filteredOrders.map((ord) => (
@@ -127,26 +127,6 @@ export default function OrderManager() {
           <div className="card-babyblue p-8 text-center text-xs text-slate-400">
             Tidak ada data pesanan ditemukan.
           </div>
-        )}
-      </div>
-    </div>
-  );
-}
-ari Pending Robux</option>
-                    <option value="completed">✓ Completed / Selesai</option>
-                    <option value="rejected">✕ Rejected / Ditolak</option>
-                  </select>
-                </div>
-
-                <button
-                  onClick={() => handleDelete(item.id)}
-                  className="px-3 py-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-xl text-xs font-semibold transition flex items-center gap-1"
-                >
-                  <Trash2 className="w-3.5 h-3.5" /> Hapus
-                </button>
-              </div>
-            </div>
-          ))
         )}
       </div>
     </div>
