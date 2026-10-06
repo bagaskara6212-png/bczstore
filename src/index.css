@@ -1,0 +1,111 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  /* =========================================
+     ANIMASI SMOOTH SUPER 
+     ========================================= */
+  .animate-fade-in { animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+  .animate-slide-up { animation: slideUp 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+  .animate-slide-down { animation: slideDown 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+  
+  /* =========================================
+     LIQUID GLASS APPLE UI EFFECT 
+     ========================================= */
+  .liquid-glass {
+    @apply bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl border border-white/40 dark:border-slate-700/50 shadow-xl shadow-sky-500/5 dark:shadow-slate-900/50;
+  }
+}
+
+@layer components {
+  /* =========================================
+     KOMPONEN UTAMA UI 
+     ========================================= */
+  
+  /* CARD UTAMA */
+  .card-babyblue {
+    @apply bg-white text-slate-800 dark:bg-slate-900 dark:text-slate-100 border border-sky-100 dark:border-slate-800 rounded-3xl shadow-xs transition-all duration-300;
+  }
+
+  /* INPUT FIX: Teks Hitam di Light Mode, Putih di Dark Mode (Anti Buta) */
+  .input-babyblue {
+    @apply w-full px-4 py-2.5 rounded-2xl 
+           bg-sky-50/70 text-slate-900 placeholder-slate-400
+           dark:bg-slate-800 dark:text-white dark:placeholder-slate-500
+           border border-sky-200/80 dark:border-slate-700 
+           focus:outline-none focus:ring-2 focus:ring-sky-400 focus:bg-white dark:focus:bg-slate-700 transition-all duration-300;
+  }
+
+  /* BUTTON UTAMA */
+  .btn-babyblue {
+    @apply bg-sky-500 hover:bg-sky-600 text-white font-bold rounded-2xl transition-all duration-300 shadow-md shadow-sky-500/20 active:scale-95;
+  }
+}
+
+/* =========================================
+   KEYFRAMES UNTUK TRANSISI HALUS
+   ========================================= */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================================
+   ABSOLUTE CINEMA ANIMATIONS 🍿🎬
+   ========================================= */
+
+/* Efek Latar Belakang Orbs Berjalan */
+@keyframes blob {
+  0% { transform: translate(0px, 0px) scale(1); }
+  33% { transform: translate(30px, -50px) scale(1.2); }
+  66% { transform: translate(-20px, 20px) scale(0.8); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+.animate-blob {
+  animation: blob 10s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
+}
+.animation-delay-2000 { animation-delay: 2s; }
+.animation-delay-4000 { animation-delay: 4s; }
+.animation-delay-6000 { animation-delay: 6s; }
+
+/* Efek Teks Berjalan (Marquee) */
+@keyframes marquee {
+  0% { transform: translateX(100vw); }
+  100% { transform: translateX(-100%); }
+}
+
+.animate-marquee {
+  display: flex;
+  white-space: nowrap;
+  animation: marquee 25s linear infinite;
+}
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* =========================================
+   FIX AUTOFILL CHROMIUM/ANDROID
+   ========================================= */
+input:-webkit-autofill {
+  -webkit-text-fill-color: #0f172a !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+.dark input:-webkit-autofill {
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+/* =========================================
+   HILANGKAN SCROLLBAR
+   ========================================= */
+.scrollbar-none::-webkit-scrollbar { display: none; }
+.scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
