@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { collection, onSnapshot, addDoc, updateDoc, deleteDoc, doc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../../firebase';
-import { Package, Plus, Trash2, Edit2, CheckCircle, XCircle } from 'lucide-react';
+import { Package, Plus, Trash2, Edit2 } from 'lucide-react';
 
 export default function ProductManager() {
   const [products, setProducts] = useState([]);
@@ -77,7 +77,6 @@ export default function ProductManager() {
 
   return (
     <div className="space-y-6">
-      {/* FORM INPUT PRODUK (FIX CARD GELAP) */}
       <div className="card-babyblue p-6 space-y-4">
         <div className="flex items-center gap-3 border-b border-sky-100 dark:border-slate-800 pb-3">
           <div className="p-2.5 bg-sky-500/10 text-sky-500 rounded-2xl">
@@ -94,27 +93,57 @@ export default function ProductManager() {
         <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">Nama Produk</label>
-            <input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="Contoh: 100 Robux" className="input-babyblue text-xs" />
+            <input 
+              type="text" 
+              value={name} 
+              onChange={e => setName(e.target.value)} 
+              placeholder="Contoh: 100 Robux" 
+              className="input-babyblue text-xs" 
+            />
           </div>
 
           <div>
             <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">Kategori</label>
-            <input type="text" value={category} onChange={e => setCategory(e.target.value)} placeholder="Contoh: Robux (Instan)" className="input-babyblue text-xs" />
+            <input 
+              type="text" 
+              value={category} 
+              onChange={e => setCategory(e.target.value)} 
+              placeholder="Contoh: Robux (Instan)" 
+              className="input-babyblue text-xs" 
+            />
           </div>
 
           <div>
             <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">Harga (Rp)</label>
-            <input type="number" value={price} onChange={e => setPrice(e.target.value)} placeholder="15000" className="input-babyblue text-xs" />
+            <input 
+              type="number" 
+              value={price} 
+              onChange={e => setPrice(e.target.value)} 
+              placeholder="15000" 
+              className="input-babyblue text-xs" 
+            />
           </div>
 
           <div>
             <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">Nama Game</label>
-            <input type="text" value={game} onChange={e => setGame(e.target.value)} placeholder="Contoh: Roblox" className="input-babyblue text-xs" />
+            <input 
+              type="text" 
+              value={game} 
+              onChange={e => setGame(e.target.value)} 
+              placeholder="Contoh: Roblox" 
+              className="input-babyblue text-xs" 
+            />
           </div>
 
           <div className="md:col-span-2">
             <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">URL Gambar (Opsional)</label>
-            <input type="text" value={image} onChange={e => setImage(e.target.value)} placeholder="https://..." className="input-babyblue text-xs" />
+            <input 
+              type="text" 
+              value={image} 
+              onChange={e => setImage(e.target.value)} 
+              placeholder="https://..." 
+              className="input-babyblue text-xs" 
+            />
           </div>
 
           <div className="md:col-span-2 flex items-center gap-2 pt-2">
@@ -130,7 +159,6 @@ export default function ProductManager() {
         </form>
       </div>
 
-      {/* DAFTAR PRODUK (FIX CARD GELAP) */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {products.map((prod) => (
           <div key={prod.id} className="card-babyblue p-4 flex flex-col justify-between space-y-3">
@@ -170,71 +198,7 @@ export default function ProductManager() {
     </div>
   );
 }
-             <input
-                  type="text"
-                  required
-                  placeholder="Contoh: 100 Robux (5 Hari Pending)"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="w-full input-babyblue text-xs"
-                />
-              </div>
-
-              <div className="grid grid-cols-2 gap-2">
-                <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1">Game</label>
-                  <input
-                    type="text"
-                    placeholder="Roblox"
-                    value={game}
-                    onChange={(e) => setGame(e.target.value)}
-                    className="w-full input-babyblue text-xs"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1">Kategori</label>
-                  <input
-                    type="text"
-                    placeholder="Robux / Top Up"
-                    value={category}
-                    onChange={(e) => setCategory(e.target.value)}
-                    className="w-full input-babyblue text-xs"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">Harga Utama (Rp)</label>
-                <input
-                  type="number"
-                  required
-                  placeholder="15000"
-                  value={price}
-                  onChange={(e) => setPrice(e.target.value)}
-                  className="w-full input-babyblue text-xs"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">URL Gambar Produk (Opsional)</label>
-                <input
-                  type="url"
-                  placeholder="https://i.ibb.co/xxxx/gambar.png"
-                  value={image}
-                  onChange={(e) => setImage(e.target.value)}
-                  className="w-full input-babyblue text-xs"
-                />
-              </div>
-
-              {/* SEKSI TAMBAH VARIAN (OPSIONAL) */}
-              <div className="p-3 bg-sky-50 rounded-2xl border border-sky-100 space-y-2">
-                <label className="block text-xs font-bold text-sky-900">Tambah Varian Produk (Opsional)</label>
-                <div className="flex gap-2">
-                  <input
-                    type="text"
-                    placeholder="Nama Varian (e.g. 500 Robux)"
-                    value={variantName}
-                    onChange={(e) => setVariantName(e.target.value)}
+      onChange={(e) => setVariantName(e.target.value)}
                     className="w-1/2 input-babyblue text-xs bg-white"
                   />
                   <input
