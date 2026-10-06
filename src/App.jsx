@@ -69,7 +69,7 @@ function MainApp() {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
 
-  // Menggunakan custom hook 4 Mode Tema
+  // Custom hook untuk 4 Mode Tema ('light', 'dark', 'glass-light', 'glass-dark')
   const [themeMode, setThemeMode] = useTheme();
 
   useEffect(() => {
@@ -167,7 +167,7 @@ function MainApp() {
       {/* FOOTER */}
       <Footer setActiveTab={setActiveTab} />
 
-      {/* MODAL SETTINGS 4 MODE TEMA + MUSIK */}
+      {/* MODAL SETTINGS (PROPS isAdmin & isVip DIKIRIM KE SINI AGAR TEMA EKSKLUSIF TERBUKA) */}
       {showSettingsModal && (
         <SettingsModal 
           onClose={() => setShowSettingsModal(false)} 
