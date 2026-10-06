@@ -5,8 +5,8 @@ import { auth, db } from './firebase';
 
 import useTheme from './hooks/useTheme';
 import SmoothView from './components/ui/SmoothView';
-import AuroraBackground from './components/ui/AuroraBackground'; // 🎬 ABSOLUTE CINEMA
-import MarqueeBanner from './components/ui/MarqueeBanner';     // 🎬 ABSOLUTE CINEMA
+import AuroraBackground from './components/ui/AuroraBackground';
+import MarqueeBanner from './components/ui/MarqueeBanner';
 
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
@@ -17,7 +17,7 @@ import VipSection from './components/vip/VipSection';
 import MyAccounts from './components/MyAccounts';
 import HelpSection from './components/HelpSection';
 import AdminPanel from './components/admin/AdminPanel';
-import AllTools from './components/tools/AllTools'; 
+import AllTools from './components/tools/AllTools';
 import AuthModal from './components/AuthModal';
 import SettingsModal from './components/SettingsModal';
 import LoadingScreen from './components/LoadingScreen';
@@ -31,16 +31,25 @@ class ErrorBoundary extends Component {
     super(props);
     this.state = { hasError: false, error: null };
   }
-  static getDerivedStateFromError(error) { return { hasError: true, error }; }
-  componentDidCatch(error, errorInfo) { console.error("Cinema Error:", error, errorInfo); }
+  static getDerivedStateFromError(error) {
+    return { hasError: true, error };
+  }
+  componentDidCatch(error, errorInfo) {
+    console.error("Absolute Cinema UI Error:", error, errorInfo);
+  }
   render() {
     if (this.state.hasError) {
       return (
         <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4">
           <div className="bg-slate-900 p-8 rounded-3xl text-center max-w-md w-full border border-rose-900 shadow-2xl">
-            <h2 className="text-xl font-black text-rose-500">Cinema Crashed 🎬💥</h2>
+            <h2 className="text-xl font-black text-rose-500">System Crashed 🎬💥</h2>
             <p className="text-xs text-slate-400 mt-2">{this.state.error?.toString()}</p>
-            <button onClick={() => window.location.reload()} className="w-full btn-babyblue py-3 mt-4">Reload</button>
+            <button 
+              onClick={() => window.location.reload()} 
+              className="w-full btn-babyblue py-3 mt-4"
+            >
+              Muat Ulang Aplikasi
+            </button>
           </div>
         </div>
       );
@@ -60,7 +69,8 @@ function MainApp() {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
 
-  const [darkMode, setDarkMode] = useTheme();
+  // Menggunakan custom hook 4 Mode Tema
+  const [themeMode, setThemeMode] = useTheme();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -78,14 +88,20 @@ function MainApp() {
             if (adminDoc.exists()) hasAdminAccess = true;
           }
           setIsAdmin(hasAdminAccess);
-        } catch (e) { setIsAdmin(isMain); }
+        } catch (e) {
+          setIsAdmin(isMain);
+        }
 
         try {
           const vipSnap = await getDoc(doc(db, 'vipMembers', email));
           setIsVip(vipSnap.exists());
-        } catch (e) { setIsVip(false); }
+        } catch (e) {
+          setIsVip(false);
+        }
       } else {
-        setIsAdmin(false); setIsMainAdmin(false); setIsVip(false);
+        setIsAdmin(false);
+        setIsMainAdmin(false);
+        setIsVip(false);
       }
       setAuthLoading(false);
     });
@@ -93,16 +109,17 @@ function MainApp() {
   }, []);
 
   useEffect(() => {
-    if (!authLoading && !user) setShowAuthModal(true);
+    if (!authLoading && !user) {
+      setShowAuthModal(true);
+    }
   }, [authLoading, user]);
 
   if (authLoading) return <LoadingScreen />;
 
   return (
-    // Hapus background default karena sudah di-handle oleh AuroraBackground
     <div className="min-h-screen text-slate-800 dark:text-slate-100 flex flex-col font-sans transition-colors duration-500 relative overflow-x-hidden">
       
-      {/* 🎬 LATAR BELAKANG ANIMASI AURORA (Absolute Cinema) */}
+      {/* BACKGROUND EFEK ANIMASI AURORA */}
       <AuroraBackground />
 
       {/* NAVBAR */}
@@ -116,9 +133,10 @@ function MainApp() {
         onOpenSettings={() => setShowSettingsModal(true)}
       />
 
-      {/* 🎬 RUNNING TEXT MARQUEE */}
+      {/* RUNNING TEXT MARQUEE BANNER */}
       <MarqueeBanner />
 
+      {/* KONTEN UTAMA */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 py-8 relative z-10">
         <SmoothView key={activeTab}>
           {activeTab === 'beranda' && (
@@ -130,17 +148,43 @@ function MainApp() {
           )}
           {activeTab === 'produk' && <ProductList user={user} />}
           {activeTab === 'alltools' && <AllTools />}
-          {activeTab === 'pesanan' && <MyAccounts user={user} isAdmin={isAdmin} isMainAdmin={isMainAdmin} isVip={isVip} />}
+          {activeTab === 'pesanan' && (
+            <MyAccounts 
+              user={user} 
+              isAdmin={isAdmin} 
+              isMainAdmin={isMainAdmin} 
+              isVip={isVip} 
+            />
+          )}
           {activeTab === 'vip' && <VipSection user={user} />}
           {activeTab === 'bantuan' && <HelpSection />}
-          {activeTab === 'admin' && isAdmin && <AdminPanel isMainAdmin={isMainAdmin} user={user} />}
+          {activeTab === 'admin' && isAdmin && (
+            <AdminPanel isMainAdmin={isMainAdmin} user={user} />
+          )}
         </SmoothView>
       </main>
 
+      {/* FOOTER */}
       <Footer setActiveTab={setActiveTab} />
 
-      {showSettingsModal && <SettingsModal onClose={() => setShowSettingsModal(false)} darkMode={darkMode} setDarkMode={setDarkMode} />}
-      {showAuthModal && <AuthModal onClose={() => setShowAuthModal(false)} forceWelcome={!user} />}
+      {/* MODAL SETTINGS 4 MODE TEMA + MUSIK */}
+      {showSettingsModal && (
+        <SettingsModal 
+          onClose={() => setShowSettingsModal(false)} 
+          themeMode={themeMode} 
+          setThemeMode={setThemeMode} 
+          isAdmin={isAdmin} 
+          isVip={isVip} 
+        />
+      )}
+
+      {/* MODAL AUTH WELCOME */}
+      {showAuthModal && (
+        <AuthModal 
+          onClose={() => setShowAuthModal(false)} 
+          forceWelcome={!user} 
+        />
+      )}
       
       <PromoModal />
       <RecentOrdersToast />
