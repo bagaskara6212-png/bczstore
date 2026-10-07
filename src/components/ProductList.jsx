@@ -1,22 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { collection, getDocs, onSnapshot } from 'firebase/firestore';
+import { collection, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebase';
 import ProductCard from './ProductCard';
-import { Search, Tag, Sparkles } from 'lucide-react';
+import { Search, Tag } from 'lucide-react';
 
 export default function ProductList({ limit: maxLimit, user, onSelectProduct }) {
   const [products, setProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState(['Semua', 'Akun Game']);
   const [selectedCategory, setSelectedCategory] = useState('Semua');
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(true);
 
-  // Fallback Data Simulasi
   const mockProducts = [
-    { id: '1', name: '80 Robux', category: 'Robux (Instan)', price: 21500, game: 'Roblox', status: 'active', stock: 99 },
-    { id: '2', name: '160 Robux', category: 'Robux (Instan)', price: 40500, game: 'Roblox', status: 'active', stock: 50 },
-    { id: '3', name: '100 Robux', category: 'Robux (5 Hari Masuk)', price: 14500, game: 'Roblox', status: 'active', stock: 100 },
-    { id: '4', name: 'Shadow (Fruit) (No Perm)', category: 'Blox Fruits', price: 4500, game: 'Blox Fruits', status: 'active', stock: 10 },
+    { id: '1', name: '80 Robux', category: 'Robux (Instan)', price: 21500, game: 'Roblox', status: 'active' },
+    { id: '2', name: '160 Robux', category: 'Robux (Instan)', price: 40500, game: 'Roblox', status: 'active' },
+    { id: '3', name: 'Akun Blox Fruits Level Max + V4', category: 'Akun Game', price: 85000, game: 'Roblox', status: 'active' },
+    { id: '4', name: 'Shadow (Fruit) (No Perm)', category: 'Blox Fruits', price: 4500, game: 'Blox Fruits', status: 'active' },
   ];
 
   useEffect(() => {
@@ -35,16 +34,17 @@ export default function ProductList({ limit: maxLimit, user, onSelectProduct }) 
       setLoading(false);
     });
 
-    // 2. Fetch Kategori
+    // 2. Fetch Kategori & Gabungkan Tab "Akun Game" Wajib Ada
     const unsubCategories = onSnapshot(collection(db, 'categories'), (snap) => {
       if (!snap.empty) {
         const catList = snap.docs.map(doc => doc.data().name);
-        setCategories(['Semua', ...catList]);
+        const uniqueCats = Array.from(new Set(['Semua', 'Akun Game', ...catList]));
+        setCategories(uniqueCats);
       } else {
-        setCategories(['Semua', 'Robux (Instan)', 'Robux (5 Hari Masuk)', 'Blox Fruits']);
+        setCategories(['Semua', 'Akun Game', 'Robux (Instan)', 'Robux (5 Hari Masuk)', 'Blox Fruits']);
       }
     }, (err) => {
-      setCategories(['Semua', 'Robux (Instan)', 'Robux (5 Hari Masuk)', 'Blox Fruits']);
+      setCategories(['Semua', 'Akun Game', 'Robux (Instan)', 'Robux (5 Hari Masuk)', 'Blox Fruits']);
     });
 
     return () => {
@@ -69,7 +69,7 @@ export default function ProductList({ limit: maxLimit, user, onSelectProduct }) 
     return (
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 py-6">
         {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
-          <div key={n} className="card-babyblue p-4 h-52 animate-pulse bg-slate-200/50 dark:bg-slate-800/50"></div>
+          <div key={n} className="card-babyblue p-4 h-52 animate-pulse bg-slate-200/50 dark:bg-slate-800/50" />
         ))}
       </div>
     );
@@ -85,7 +85,7 @@ export default function ProductList({ limit: maxLimit, user, onSelectProduct }) 
             <button
               key={idx}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-4 py-2.5 rounded-2xl text-xs font-bold whitespace-nowrap transition-all shadow-xs ${
+              className={`px-4 py-2.5 rounded-2xl text-xs font-bold whitespace-nowrap transition-all shadow-sm ${
                 selectedCategory === cat
                   ? 'bg-sky-500 text-white shadow-md shadow-sky-500/20'
                   : 'card-babyblue hover:text-sky-500 dark:hover:text-sky-400'
@@ -101,7 +101,7 @@ export default function ProductList({ limit: maxLimit, user, onSelectProduct }) 
           <Search className="absolute left-3.5 top-3.5 w-4 h-4 text-slate-400" />
           <input
             type="text"
-            placeholder="Cari produk / game..."
+            placeholder="Cari produk / game / akun..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="input-babyblue pl-10 text-xs"
