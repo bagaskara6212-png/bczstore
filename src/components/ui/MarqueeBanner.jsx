@@ -12,7 +12,7 @@ export default function MarqueeBanner() {
   const duplicatedList = [...announcements, ...announcements, ...announcements, ...announcements];
 
   return (
-    <div className="w-full h-10 bg-gradient-to-r from-sky-500 via-indigo-500 to-emerald-500 text-white overflow-hidden relative z-20 flex items-center shadow-md">
+    <div className="w-full h-10 bg-gradient-to-r from-sky-500 via-indigo-500 to-emerald-500 text-white overflow-hidden relative z-20 flex items-center shadow-md shrink-0">
       <div className="flex flex-row items-center whitespace-nowrap animate-marquee shrink-0">
         {duplicatedList.map((item, idx) => {
           const Icon = item.icon;
