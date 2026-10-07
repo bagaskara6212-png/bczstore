@@ -3,23 +3,29 @@ import { useState, useEffect } from 'react';
 export default function useTheme() {
   const [themeMode, setThemeMode] = useState(() => {
     const saved = localStorage.getItem('bcz_theme_mode');
-    if (saved) return saved;
-    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    return saved || 'dark';
   });
 
   useEffect(() => {
     localStorage.setItem('bcz_theme_mode', themeMode);
-    
-    // Hapus semua kelas tema lama
-    document.documentElement.classList.remove('dark', 'theme-glass-light', 'theme-glass-dark');
+    const root = document.documentElement;
 
-    // Pasang kelas tema sesuai pilihan
-    if (themeMode === 'dark') {
-      document.documentElement.classList.add('dark');
+    // Bersihkan semua kelas tema
+    root.classList.remove('dark', 'theme-glass-light', 'theme-glass-dark');
+
+    if (themeMode === 'light') {
+      // Light Mode: Wajib copot kelas dark
+      root.classList.remove('dark');
+    } else if (themeMode === 'dark') {
+      // Dark Mode
+      root.classList.add('dark');
     } else if (themeMode === 'glass-light') {
-      document.documentElement.classList.add('theme-glass-light');
+      // Full Liquid Glass Light: Copot dark, pasang glass-light
+      root.classList.remove('dark');
+      root.classList.add('theme-glass-light');
     } else if (themeMode === 'glass-dark') {
-      document.documentElement.classList.add('dark', 'theme-glass-dark');
+      // Full Liquid Glass Dark
+      root.classList.add('dark', 'theme-glass-dark');
     }
   }, [themeMode]);
 
