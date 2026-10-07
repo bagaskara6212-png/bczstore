@@ -35,15 +35,15 @@ class ErrorBoundary extends Component {
     return { hasError: true, error };
   }
   componentDidCatch(error, errorInfo) {
-    console.error("Absolute Cinema UI Error:", error, errorInfo);
+    console.error("BCZ Store Error:", error, errorInfo);
   }
   render() {
     if (this.state.hasError) {
       return (
-        <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4">
-          <div className="bg-slate-900 p-8 rounded-3xl text-center max-w-md w-full border border-rose-900 shadow-2xl">
+        <div className="min-h-screen bg-sky-50 dark:bg-slate-950 flex items-center justify-center p-4">
+          <div className="card-babyblue p-8 text-center max-w-md w-full border border-rose-500/30 shadow-2xl">
             <h2 className="text-xl font-black text-rose-500">System Crashed 🎬💥</h2>
-            <p className="text-xs text-slate-400 mt-2">{this.state.error?.toString()}</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">{this.state.error?.toString()}</p>
             <button 
               onClick={() => window.location.reload()} 
               className="w-full btn-babyblue py-3 mt-4"
@@ -69,7 +69,6 @@ function MainApp() {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
 
-  // Custom hook untuk 4 Mode Tema ('light', 'dark', 'glass-light', 'glass-dark')
   const [themeMode, setThemeMode] = useTheme();
 
   useEffect(() => {
@@ -117,9 +116,9 @@ function MainApp() {
   if (authLoading) return <LoadingScreen />;
 
   return (
-    <div className="min-h-screen text-slate-800 dark:text-slate-100 flex flex-col font-sans transition-colors duration-500 relative overflow-x-hidden">
+    <div className="min-h-screen bg-sky-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col font-sans transition-colors duration-500 relative overflow-x-hidden">
       
-      {/* BACKGROUND EFEK ANIMASI AURORA */}
+      {/* BACKGROUND EFEK AURORA */}
       <AuroraBackground />
 
       {/* NAVBAR */}
@@ -133,7 +132,7 @@ function MainApp() {
         onOpenSettings={() => setShowSettingsModal(true)}
       />
 
-      {/* RUNNING TEXT MARQUEE BANNER */}
+      {/* RUNNING TEXT MARQUEE */}
       <MarqueeBanner />
 
       {/* KONTEN UTAMA */}
@@ -167,7 +166,7 @@ function MainApp() {
       {/* FOOTER */}
       <Footer setActiveTab={setActiveTab} />
 
-      {/* MODAL SETTINGS (PROPS isAdmin & isVip DIKIRIM KE SINI AGAR TEMA EKSKLUSIF TERBUKA) */}
+      {/* MODALS */}
       {showSettingsModal && (
         <SettingsModal 
           onClose={() => setShowSettingsModal(false)} 
@@ -178,7 +177,6 @@ function MainApp() {
         />
       )}
 
-      {/* MODAL AUTH WELCOME */}
       {showAuthModal && (
         <AuthModal 
           onClose={() => setShowAuthModal(false)} 
