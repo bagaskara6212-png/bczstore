@@ -24,7 +24,8 @@ import LoadingScreen from './components/LoadingScreen';
 import PromoModal from './components/PromoModal';
 import RecentOrdersToast from './components/RecentOrdersToast';
 
-const MAIN_ADMIN_EMAIL = "bagaskara6212@gmail.com";
+// Ganti baris hardcode email lama dengan ini:
+const MAIN_ADMIN_EMAIL = import.meta.env.VITE_MAIN_ADMIN_EMAIL || "bagaskara6212@gmail.com";
 
 class ErrorBoundary extends Component {
   constructor(props) {
